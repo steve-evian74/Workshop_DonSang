@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HopitalRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,6 +73,27 @@ class Hopital
      * @ORM\Column(type="integer")
      */
     private $MinQtePLAQ;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="Fk_Patient")
+     */
+    private $Patient;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="Fk_Hopital")
+     */
+    private $FK_Patient;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Collecte::class, mappedBy="Fk_Hopital")
+     */
+    private $Fk_Collecte;
+
+    public function __construct()
+    {
+        $this->Patient = new ArrayCollection();
+        $this->Fk_Collecte = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -205,6 +228,78 @@ class Hopital
     public function setMinQtePLAQ(int $MinQtePLAQ): self
     {
         $this->MinQtePLAQ = $MinQtePLAQ;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Utilisateur[]
+     */
+    public function getPatient(): Collection
+    {
+        return $this->Patient;
+    }
+
+    public function addPatient(Utilisateur $patient): self
+    {
+        if (!$this->Patient->contains($patient)) {
+            $this->Patient[] = $patient;
+            $patient->setFkPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removePatient(Utilisateur $patient): self
+    {
+        if ($this->Patient->removeElement($patient)) {
+            // set the owning side to null (unless already changed)
+            if ($patient->getFkPatient() === $this) {
+                $patient->setFkPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFKPatient(): ?Utilisateur
+    {
+        return $this->FK_Patient;
+    }
+
+    public function setFKPatient(?Utilisateur $FK_Patient): self
+    {
+        $this->FK_Patient = $FK_Patient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Collecte[]
+     */
+    public function getFkCollecte(): Collection
+    {
+        return $this->Fk_Collecte;
+    }
+
+    public function addFkCollecte(Collecte $fkCollecte): self
+    {
+        if (!$this->Fk_Collecte->contains($fkCollecte)) {
+            $this->Fk_Collecte[] = $fkCollecte;
+            $fkCollecte->setFkHopital($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFkCollecte(Collecte $fkCollecte): self
+    {
+        if ($this->Fk_Collecte->removeElement($fkCollecte)) {
+            // set the owning side to null (unless already changed)
+            if ($fkCollecte->getFkHopital() === $this) {
+                $fkCollecte->setFkHopital(null);
+            }
+        }
 
         return $this;
     }

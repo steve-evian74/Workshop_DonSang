@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Collecte index{% endblock %}
+
+{% block body %}
+    <h1>Collecte index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom_Collecte</th>
+                <th>Date_Collecte</th>
+                <th>Globule_Rouge</th>
+                <th>Quantite_GRouge</th>
+                <th>Plaquette</th>
+                <th>Quantite_Plaquette</th>
+                <th>Plasma</th>
+                <th>Quantite_Plas</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for collecte in collectes %}
+            <tr>
+                <td>{{ collecte.id }}</td>
+                <td>{{ collecte.NomCollecte }}</td>
+                <td>{{ collecte.DateCollecte ? collecte.DateCollecte|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ collecte.GlobuleRouge }}</td>
+                <td>{{ collecte.QuantiteGRouge }}</td>
+                <td>{{ collecte.Plaquette }}</td>
+                <td>{{ collecte.QuantitePlaquette }}</td>
+                <td>{{ collecte.Plasma }}</td>
+                <td>{{ collecte.QuantitePlas }}</td>
+                <td>
+                    <a href="{{ path('collecte_show', {'id': collecte.id}) }}">show</a>
+                    <a href="{{ path('collecte_edit', {'id': collecte.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('collecte_new') }}">Create new</a>
+{% endblock %}

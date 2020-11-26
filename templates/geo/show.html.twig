@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Geo{% endblock %}
+
+{% block body %}
+    <h1>Geo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ geo.id }}</td>
+            </tr>
+            <tr>
+                <th>P</th>
+                <td>{{ geo.P }}</td>
+            </tr>
+            <tr>
+                <th>Pos</th>
+                <td>{{ geo.Pos }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('geo_index') }}">back to list</a>
+
+    <a href="{{ path('geo_edit', {'id': geo.id}) }}">edit</a>
+
+    {{ include('geo/_delete_form.html.twig') }}
+{% endblock %}

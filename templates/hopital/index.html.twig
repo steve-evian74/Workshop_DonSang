@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hopital index{% endblock %}
+
+{% block body %}
+    <h1>Hopital index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>EFS_Nom</th>
+                <th>EFS_Adresse</th>
+                <th>EFS_Zip</th>
+                <th>EFS_Ville</th>
+                <th>PosGeo</th>
+                <th>Qte_Globule_Rouge</th>
+                <th>Qte_plasma</th>
+                <th>Qte_Plaquettes</th>
+                <th>MinQteGlr</th>
+                <th>MinQtePLSA</th>
+                <th>MinQtePLAQ</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hopital in hopitals %}
+            <tr>
+                <td>{{ hopital.id }}</td>
+                <td>{{ hopital.EFSNom }}</td>
+                <td>{{ hopital.EFSAdresse }}</td>
+                <td>{{ hopital.EFSZip }}</td>
+                <td>{{ hopital.EFSVille }}</td>
+                <td>{{ hopital.PosGeo }}</td>
+                <td>{{ hopital.QteGlobuleRouge }}</td>
+                <td>{{ hopital.QtePlasma }}</td>
+                <td>{{ hopital.QtePlaquettes }}</td>
+                <td>{{ hopital.MinQteGlr }}</td>
+                <td>{{ hopital.MinQtePLSA }}</td>
+                <td>{{ hopital.MinQtePLAQ }}</td>
+                <td>
+                    <a href="{{ path('hopital_show', {'id': hopital.id}) }}">show</a>
+                    <a href="{{ path('hopital_edit', {'id': hopital.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('hopital_new') }}">Create new</a>
+{% endblock %}

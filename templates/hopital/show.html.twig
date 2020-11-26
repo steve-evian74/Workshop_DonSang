@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hopital{% endblock %}
+
+{% block body %}
+    <h1>Hopital</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ hopital.id }}</td>
+            </tr>
+            <tr>
+                <th>EFS_Nom</th>
+                <td>{{ hopital.EFSNom }}</td>
+            </tr>
+            <tr>
+                <th>EFS_Adresse</th>
+                <td>{{ hopital.EFSAdresse }}</td>
+            </tr>
+            <tr>
+                <th>EFS_Zip</th>
+                <td>{{ hopital.EFSZip }}</td>
+            </tr>
+            <tr>
+                <th>EFS_Ville</th>
+                <td>{{ hopital.EFSVille }}</td>
+            </tr>
+            <tr>
+                <th>PosGeo</th>
+                <td>{{ hopital.PosGeo }}</td>
+            </tr>
+            <tr>
+                <th>Qte_Globule_Rouge</th>
+                <td>{{ hopital.QteGlobuleRouge }}</td>
+            </tr>
+            <tr>
+                <th>Qte_plasma</th>
+                <td>{{ hopital.QtePlasma }}</td>
+            </tr>
+            <tr>
+                <th>Qte_Plaquettes</th>
+                <td>{{ hopital.QtePlaquettes }}</td>
+            </tr>
+            <tr>
+                <th>MinQteGlr</th>
+                <td>{{ hopital.MinQteGlr }}</td>
+            </tr>
+            <tr>
+                <th>MinQtePLSA</th>
+                <td>{{ hopital.MinQtePLSA }}</td>
+            </tr>
+            <tr>
+                <th>MinQtePLAQ</th>
+                <td>{{ hopital.MinQtePLAQ }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('hopital_index') }}">back to list</a>
+
+    <a href="{{ path('hopital_edit', {'id': hopital.id}) }}">edit</a>
+
+    {{ include('hopital/_delete_form.html.twig') }}
+{% endblock %}

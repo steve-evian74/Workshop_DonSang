@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CollecteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -56,6 +58,26 @@ class Collecte
      * @ORM\Column(type="integer", nullable=true)
      */
     private $Quantite_Plas;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="Fk_Collecte")
+     */
+    private $Fk_Utilisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Hopital::class, inversedBy="Fk_Collecte")
+     */
+    private $Fk_Hopital;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Role::class, mappedBy="FK_Role")
+     */
+    private $Fk_Role;
+
+    public function __construct()
+    {
+        $this->Fk_Role = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +176,60 @@ class Collecte
     public function setQuantitePlas(?int $Quantite_Plas): self
     {
         $this->Quantite_Plas = $Quantite_Plas;
+
+        return $this;
+    }
+
+    public function getFkUtilisateur(): ?Utilisateur
+    {
+        return $this->Fk_Utilisateur;
+    }
+
+    public function setFkUtilisateur(?Utilisateur $Fk_Utilisateur): self
+    {
+        $this->Fk_Utilisateur = $Fk_Utilisateur;
+
+        return $this;
+    }
+
+    public function getFkHopital(): ?Hopital
+    {
+        return $this->Fk_Hopital;
+    }
+
+    public function setFkHopital(?Hopital $Fk_Hopital): self
+    {
+        $this->Fk_Hopital = $Fk_Hopital;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getFkRole(): Collection
+    {
+        return $this->Fk_Role;
+    }
+
+    public function addFkRole(Role $fkRole): self
+    {
+        if (!$this->Fk_Role->contains($fkRole)) {
+            $this->Fk_Role[] = $fkRole;
+            $fkRole->setFKRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFkRole(Role $fkRole): self
+    {
+        if ($this->Fk_Role->removeElement($fkRole)) {
+            // set the owning side to null (unless already changed)
+            if ($fkRole->getFKRole() === $this) {
+                $fkRole->setFKRole(null);
+            }
+        }
 
         return $this;
     }

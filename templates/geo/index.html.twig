@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Geo index{% endblock %}
+
+{% block body %}
+    <h1>Geo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>P</th>
+                <th>Pos</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for geo in geos %}
+            <tr>
+                <td>{{ geo.id }}</td>
+                <td>{{ geo.P }}</td>
+                <td>{{ geo.Pos }}</td>
+                <td>
+                    <a href="{{ path('geo_show', {'id': geo.id}) }}">show</a>
+                    <a href="{{ path('geo_edit', {'id': geo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('geo_new') }}">Create new</a>
+{% endblock %}
