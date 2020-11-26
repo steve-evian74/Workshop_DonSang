@@ -7,18 +7,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
+    /**
+     * @Route("/HomePage")
+     */
 class HomePageController extends AbstractController
 {
-    /**
-     * @Route("/HomePage/number")
+/**
+     * @Route("/", name="homePage", methods={"GET"})
      */
-    public function HomePage()
+    public function Index()
     {
-        $number = random_int(0,100);
+        return $this->render('HomePage/index.html.twig');
 
-        return $this->render('HomePage/number.html.twig',['number' => $number,]);
-    
-        
     }
 }
 
